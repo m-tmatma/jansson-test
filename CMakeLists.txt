@@ -17,5 +17,6 @@ file(GLOB SRC *.c)
 # define sources files of an executable
 add_executable(${project_name} ${SRC})
 
-include_directories(${jansson_SOURCE_DIR}/src)
-target_link_libraries(${project_name} ${jansson_BINARY_DIR})
+include_directories(${jansson_BINARY_DIR}/include)
+target_link_directories(${project_name} PUBLIC ${jansson_BINARY_DIR})
+target_link_libraries(${project_name} PUBLIC "jansson")
