@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
         }
         if (json_is_string(value) )
         {
-            printf("string\n");
+            printf("string => '%s'\n", json_string_value(value));
         }
         if (json_is_integer(value))
         {
-            printf("integer\n");
+            printf("integer => %d\n", json_integer_value(value));
         }
         if (json_is_real(value)   )
         {
