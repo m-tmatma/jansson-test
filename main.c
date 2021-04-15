@@ -27,7 +27,39 @@ int main(int argc, char *argv[])
 
     json_object_foreach(json_object, key, value) {
         /* block of code that uses key and value */
-        printf("%s:\n", key);
+        printf("%s: ", key);
+        if (json_is_object(value) )
+        {
+            printf("Object\n");
+        }
+        if (json_is_array(value)  )
+        {
+            printf("array\n");
+        }
+        if (json_is_string(value) )
+        {
+            printf("string\n");
+        }
+        if (json_is_integer(value))
+        {
+            printf("integer\n");
+        }
+        if (json_is_real(value)   )
+        {
+            printf("Object\n");
+        }
+        if (json_is_number(value) )
+        {
+            printf("number\n");
+        }
+        if (json_is_boolean(value))
+        {
+            printf("bool\n");
+        }
+        if (json_is_null(value)   )
+        {
+            printf("null\n");
+        }
     }
     json_decref(json_object);
 }
