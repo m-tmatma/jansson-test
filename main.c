@@ -1,12 +1,22 @@
 #include <string.h>
 #include <jansson.h>
 
-void show_value(const char *key, json_t *value)
+void show_value(const char *key, json_t *value, int indent)
 {
+    for(int i = 0; i < indent; i++)
+    {
+        printf("\t");
+    }
     printf("%s: ", key);
     if (json_is_object(value) )
     {
+        const char *subkey;
+        json_t *subvalue;
+
         printf("Object\n");
+        json_object_foreach(value, subkey, subvalue) {
+            show_value(subkey, subvalue, indent+1);
+        }
     }
     else if (json_is_array(value)  )
     {
@@ -64,7 +74,7 @@ int main(int argc, char *argv[])
 
     json_object_foreach(json_object, key, value) {
         /* block of code that uses key and value */
-        show_value(key, value);
+        show_value(key, value, 0);
     }
     json_decref(json_object);
 }
