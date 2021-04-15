@@ -1,50 +1,54 @@
 #include <string.h>
 #include <jansson.h>
 
-void show_value(const char *key, json_t *value, int indent)
+void show_value(json_t *json_object, int indent)
 {
-    for(int i = 0; i < indent; i++)
-    {
-        printf("\t");
-    }
-    printf("%s: ", key);
-    if (json_is_object(value) )
-    {
-        const char *subkey;
-        json_t *subvalue;
+    const char *key;
+    json_t *value;
 
-        printf("Object\n");
-        json_object_foreach(value, subkey, subvalue) {
-            show_value(subkey, subvalue, indent+1);
+    json_object_foreach(json_object, key, value) {
+        /* block of code that uses key and value */
+        for(int i = 0; i < indent; i++)
+        {
+            printf("\t");
         }
-    }
-    else if (json_is_array(value)  )
-    {
-        printf("array\n");
-    }
-    else if (json_is_string(value) )
-    {
-        printf("string => '%s'\n", json_string_value(value));
-    }
-    else if (json_is_integer(value))
-    {
-        printf("integer => %lld\n", json_integer_value(value));
-    }
-    else if (json_is_real(value)   )
-    {
-        printf("real => %f\n", json_real_value(value));
-    }
-    else if (json_is_number(value) )
-    {
-        printf("number\n");
-    }
-    else if (json_is_boolean(value))
-    {
-        printf("bool\n");
-    }
-    else if (json_is_null(value)   )
-    {
-        printf("null\n");
+        printf("%s: ", key);
+        if (json_is_object(value) )
+        {
+            const char *subkey;
+            json_t *subvalue;
+
+            printf("Object\n");
+            show_value(value, indent+1);
+        }
+        else if (json_is_array(value)  )
+        {
+            printf("array\n");
+        }
+        else if (json_is_string(value) )
+        {
+            printf("string => '%s'\n", json_string_value(value));
+        }
+        else if (json_is_integer(value))
+        {
+            printf("integer => %lld\n", json_integer_value(value));
+        }
+        else if (json_is_real(value)   )
+        {
+            printf("real => %f\n", json_real_value(value));
+        }
+        else if (json_is_number(value) )
+        {
+            printf("number\n");
+        }
+        else if (json_is_boolean(value))
+        {
+            printf("bool\n");
+        }
+        else if (json_is_null(value)   )
+        {
+            printf("null\n");
+        }
     }
 }
 
@@ -68,14 +72,8 @@ int main(int argc, char *argv[])
     printf("name: %s\n", name);
 #endif
 
-    /* obj is a JSON object */
-    const char *key;
-    json_t *value;
+    show_value(json_object, 0);
 
-    json_object_foreach(json_object, key, value) {
-        /* block of code that uses key and value */
-        show_value(key, value, 0);
-    }
     json_decref(json_object);
 }
 
