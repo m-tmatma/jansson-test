@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
         }
         if (json_is_real(value)   )
         {
-            printf("Object\n");
+            printf("real => %f\n", json_real_value(value));
         }
         if (json_is_number(value) )
         {
