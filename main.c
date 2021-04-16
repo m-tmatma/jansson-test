@@ -1,6 +1,18 @@
 #include <string.h>
 #include <jansson.h>
 
+const char * get_indent(int indent)
+{
+    static char prefix[1000];
+    int i;
+    for(i = 0; i < indent; i++)
+    {
+        prefix[i] = '\t';
+    }
+    prefix[i] = '\0';
+    return prefix;
+}
+
 void show_value(json_t *value, int indent)
 {
 #if 0
@@ -50,7 +62,7 @@ void show_value(json_t *value, int indent)
 
             json_object_foreach(value, subkey, subvalue) {
                 /* block of code that uses key and value */
-                printf("%s: ", subkey);
+                printf("%s%s:\n", get_indent(indent+1), subkey);
                 show_value(subvalue, indent + 1);
             }
         }
@@ -62,34 +74,34 @@ void show_value(json_t *value, int indent)
             size_t index;
             json_t *subvalue;
 
-            printf("array\n");
+            printf("%sarray\n", get_indent(indent));
             json_array_foreach(value, index, subvalue) {
                 /* block of code that uses index and value */
-                printf("index = %ld type = %d\n", index, json_typeof(subvalue));
+                printf("%sindex = %ld type = %d\n", get_indent(indent), index, json_typeof(subvalue));
                 show_value(subvalue, indent+1);
             }
         }
         break;
     case JSON_STRING:
-        printf("string => '%s'\n", json_string_value(value));
+        printf("%sstring => '%s'\n", get_indent(indent), json_string_value(value));
         break;
     case JSON_INTEGER:
-        printf("integer => %lld\n", json_integer_value(value));
+        printf("%sinteger => %lld\n", get_indent(indent), json_integer_value(value));
         break;
     case JSON_REAL:
-        printf("real => %f\n", json_real_value(value));
+        printf("%sreal => %f\n", get_indent(indent), json_real_value(value));
         break;
     case JSON_TRUE:
-        printf("true\n");
+        printf("%strue\n", get_indent(indent));
         break;
     case JSON_FALSE:
-        printf("false\n");
+        printf("%sfalse\n", get_indent(indent));
         break;
     case JSON_NULL:
-        printf("null\n");
+        printf("%snull\n", get_indent(indent));
         break;
     default:
-        printf("type = %d\n", json_typeof(value));
+        printf("%stype = %d\n", get_indent(indent), json_typeof(value));
         break;
     }
 #endif
