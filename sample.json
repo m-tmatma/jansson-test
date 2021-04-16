@@ -4,6 +4,15 @@
     "data": 123.456,
     "hash": {
         "name": "json",
-        "id": 134
-    }
+        "id": 134,
+
+        "subhash": {
+            "subname": "json",
+            "subid": 134
+        }
+    },
+    "array1" : [1, 2, 3, 4],
+    "array2" : ["ABC", "CDEF"],
+    "flag1" : true,
+    "flag2" : false
 }
