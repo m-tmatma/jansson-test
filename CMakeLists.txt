@@ -11,6 +11,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${outputdir})
 
 add_subdirectory(jansson)
 add_subdirectory(test-read)
+add_subdirectory(test-write)
 
 # define a project name
 project (${project_name})
