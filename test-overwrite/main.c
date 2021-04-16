@@ -21,6 +21,12 @@ int main(int argc, char *argv[])
     {
         json_integer_set(json_int, 10000);
     }
+
+    json_t *obj = json_object();
+    json_object_set_new(obj, "test1", json_integer(100));
+    json_object_set_new(obj, "test2", json_integer(200));
+    json_object_set_new(json_root_object, "hash2", obj);
+
     printf("%s\n", json_dumps(json_root_object, JSON_INDENT(4)));
     json_decref(json_root_object);
 }
