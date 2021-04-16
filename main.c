@@ -13,6 +13,7 @@ void show_value(json_t *json_object, int indent)
             printf("\t");
         }
         printf("%s: ", key);
+#if 0
         if (json_is_object(value) )
         {
             const char *subkey;
@@ -49,6 +50,54 @@ void show_value(json_t *json_object, int indent)
         {
             printf("null\n");
         }
+#else
+        switch( json_typeof(value) )
+        {
+        case JSON_OBJECT:
+            {
+                const char *subkey;
+                json_t *subvalue;
+
+                printf("Object\n");
+                show_value(value, indent+1);
+            }
+            break;
+        case JSON_ARRAY:
+            {
+                /* array is a JSON array */
+                size_t index;
+                json_t *value_array;
+
+                printf("array\n");
+                json_array_foreach(value, index, value_array) {
+                    /* block of code that uses index and value */
+                    printf("index = %ld type = %d\n", index, json_typeof(value_array));
+                }
+            }
+            break;
+        case JSON_STRING:
+            printf("string => '%s'\n", json_string_value(value));
+            break;
+        case JSON_INTEGER:
+            printf("integer => %lld\n", json_integer_value(value));
+            break;
+        case JSON_REAL:
+            printf("real => %f\n", json_real_value(value));
+            break;
+        case JSON_TRUE:
+            printf("true\n");
+            break;
+        case JSON_FALSE:
+            printf("false\n");
+            break;
+        case JSON_NULL:
+            printf("null\n");
+            break;
+        default:
+            printf("type = %d\n", json_typeof(value));
+            break;
+        }
+#endif
     }
 }
 
