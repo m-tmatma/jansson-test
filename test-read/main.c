@@ -34,7 +34,7 @@ void show_value(json_t *value, int indent)
     }
     else if (json_is_integer(value))
     {
-        printf("integer => %lld\n", json_integer_value(value));
+        printf("integer => %" JSON_INTEGER_FORMAT  "\n", json_integer_value(value));
     }
     else if (json_is_real(value)   )
     {
@@ -86,7 +86,7 @@ void show_value(json_t *value, int indent)
         printf("%sstring => '%s'\n", get_indent(indent), json_string_value(value));
         break;
     case JSON_INTEGER:
-        printf("%sinteger => %lld\n", get_indent(indent), json_integer_value(value));
+        printf("%sinteger => %" JSON_INTEGER_FORMAT  "\n", get_indent(indent), json_integer_value(value));
         break;
     case JSON_REAL:
         printf("%sreal => %f\n", get_indent(indent), json_real_value(value));
