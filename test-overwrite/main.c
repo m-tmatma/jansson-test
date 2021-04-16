@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
         json_t *obj = json_array();
         json_array_append_new(obj, json_string("ABCDE"));
         json_array_append_new(obj, json_string("12345"));
+        json_array_append_new(obj, json_integer(200));
         json_object_set_new(json_root_object, "arraytest", obj);
     }
 
