@@ -29,6 +29,13 @@ int main(int argc, char *argv[])
         json_object_set_new(json_root_object, "hash2", obj);
     }
 
+    {
+        json_t *obj = json_array();
+        json_array_append_new(obj, json_string("ABCDE"));
+        json_array_append_new(obj, json_string("12345"));
+        json_object_set_new(json_root_object, "arraytest", obj);
+    }
+
     printf("%s\n", json_dumps(json_root_object, JSON_INDENT(4)));
     json_decref(json_root_object);
 }
