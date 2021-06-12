@@ -9,10 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: git submodule
-      shell: bash
-      run: git submodule update --init --recursive
-
     - name: Create Build Environment
       shell: bash
       run: autoreconf -i && mkdir ${{github.workspace}}/build
