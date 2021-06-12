@@ -17,6 +17,10 @@ jobs:
       shell: bash
       run: autoreconf -i && mkdir ${{github.workspace}}/build
 
+    - name: Install libjansson-dev
+      shell: bash
+      run: sudo apt-get install -y libjansson-dev
+
     - name: Configure
       shell: bash
       working-directory: ${{github.workspace}}/build
